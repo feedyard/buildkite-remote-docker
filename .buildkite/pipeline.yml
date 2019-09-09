@@ -10,7 +10,9 @@ steps:
   - label: build
     agents:
       queue: bootstrap
-    command: docker build -t test/buildkite-remote-docker:$BUILDKITE_COMMIT .
+    commands:
+      - "ls -la"
+      - "docker build -t test/buildkite-remote-docker:$BUILDKITE_COMMIT ."
     plugins:
       - docker#v3.3.0:
           image: "docker:latest"
