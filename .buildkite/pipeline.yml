@@ -10,3 +10,10 @@ steps:
     commands:
       - "echo $NITE"
       - "docker build -t test/buildkite-remote-docker:$BUILDKITE_COMMIT ."
+  - label: publish
+    agents:
+      queue: bootstrap
+    commands:
+      - "source /env/env"
+      - "echo $QUAY_DEPLOY_PASSWORD | docker login -u $QUAY_DEPLOY_USER --password-stdin quay.io"
+      
