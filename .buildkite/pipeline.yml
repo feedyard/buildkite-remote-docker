@@ -1,0 +1,46 @@
+steps:
+  - label: pwd
+    agents:
+      queue: bootstrap
+    command: pwd
+  - label: current directory contents
+    agents:
+      queue: bootstrap
+    command: ls -la
+
+
+# steps:
+#   - command:
+#       - "yarn install"
+#       - "yarn run test"
+#     plugins:
+#       - docker#v3.3.0:
+#           image: "node:7"
+#           always-pull: true
+#           environment:
+#             - "MY_SECRET_KEY"
+#             - "MY_SPECIAL_BUT_PUBLIC_VALUE=kittens"
+#
+#
+# steps:
+#   - command:
+#       - "yarn install"
+#       - "yarn run test"
+#     env:
+#       MY_SPECIAL_BUT_PUBLIC_VALUE: kittens
+#     plugins:
+#       - docker#v3.3.0:
+#           image: "node:7"
+#           always-pull: true
+#           propagate-environment: true
+#
+# steps:
+#   - commands:
+#       - "docker build . -t image:tag"
+#       - "docker push image:tag"
+#     plugins:
+#       - docker#v3.3.0:
+#           image: "docker:latest"
+#           always-pull: true
+#           volumes:
+#             - "/var/run/docker.sock:/var/run/docker.sock"

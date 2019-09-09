@@ -2,9 +2,10 @@ FROM alpine:3.10
 
 LABEL maintainer=<nic.cheneweth@thoughtworks.com>
 
-ENV BUILDKITE_AGENT_VERSION = 3.13.2
+ENV BUILDKITE_AGENT_VERSION="3.13.2"
 
 RUN apk add --no-cache \
+    bash=5.0.0-r0 \
     git=2.22.0-r0 \
     openssh=8.0_p1-r0 \
     curl=7.65.1-r0 \
@@ -27,3 +28,5 @@ VOLUME /buildkite
 WORKDIR /buildkite
 ENTRYPOINT ["buildkite-agent"]
 CMD ["start"]
+
+# curl -SLO https://github.com/buildkite/agent/releases/download/v3.13.2/buildkite-agent-linux-amd64-3.13.2.tar.gz
