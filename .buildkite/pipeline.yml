@@ -12,7 +12,7 @@ steps:
     agents:
       queue: bootstrap
     commands:
-      - "ls -la .."
+      - "ls -la ../root"
       - "docker build -t test/buildkite-remote-docker:$BUILDKITE_COMMIT ."
     plugins:
       - docker#v3.3.0:
