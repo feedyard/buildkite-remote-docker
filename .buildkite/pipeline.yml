@@ -14,13 +14,7 @@ steps:
     commands:
       - "ls -la ../root"
       - "docker build -t test/buildkite-remote-docker:$BUILDKITE_COMMIT ."
-    plugins:
-      - docker#v3.3.0:
-          image: "docker:latest"
-          always-pull: true
-          volumes:
-            - "/var/run/docker.sock:/var/run/docker.sock"
-
+    
 
 # steps:
 #   - command:
