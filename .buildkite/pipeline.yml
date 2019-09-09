@@ -7,6 +7,7 @@ steps:
        - "chmod +x hadolint-Linux-x86_64"
        - "mv hadolint-Linux-x86_64 /usr/local/bin/hadolint"
        - "hadolint Dockerfile"
+       - "ls -la"
   - label: build
     agents:
       queue: bootstrap
@@ -17,7 +18,7 @@ steps:
       - docker#v3.3.0:
           image: "docker:latest"
           always-pull: true
-          workdir: .
+          workdir: /
           volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
 
