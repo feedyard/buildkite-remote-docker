@@ -3,16 +3,11 @@ steps:
     agents:
       queue: bootstrap
     commands:
-       - "curl -SLO https://github.com/hadolint/hadolint/releases/download/v1.17.1/hadolint-Linux-x86_64"
-       - "chmod +x hadolint-Linux-x86_64"
-       - "mv hadolint-Linux-x86_64 /usr/local/bin/hadolint"
-       - "hadolint Dockerfile"
-       - "ls -la"
+      - "hadolint Dockerfile"
   - label: build
     agents:
       queue: bootstrap
     commands:
-      - "ls -la"
       - "docker build -t test/buildkite-remote-docker:$BUILDKITE_COMMIT ."
 
 
