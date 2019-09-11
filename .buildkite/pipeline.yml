@@ -1,4 +1,8 @@
 steps:
+  - label: test source scope
+    agents:
+      queue: bootstrap
+    command: source /env/env
   - label: lint
     agents:
       queue: bootstrap
@@ -8,13 +12,11 @@ steps:
     agents:
       queue: bootstrap
     commands:
-      - "echo $NITE"
       - "docker build -t test/buildkite-remote-docker:$BUILDKITE_COMMIT ."
   - label: publish
     agents:
       queue: bootstrap
     commands:
-      - "ls -la /"
       - "echo $NITE"
       - "echo $NITETIME"
       #- "echo $QUAY_DEPLOY_PASSWORD | docker login -u $QUAY_DEPLOY_USER --password-stdin quay.io"

@@ -8,8 +8,7 @@ def buildlocal(ctx):
 @task
 def runlocalagent(ctx):
     LAUNCH = "docker run -v \"/var/run/docker.sock:/var/run/docker.sock\" " \
-             "-e NITE " \
-             "-e NITETIME " \
+             "-v /Users/ncheneweth/.buildkite:/env " \
              "-d -t local/buildkite-infra:latest start " \
              "--token $BUILDKITE_AGENT_TOKEN " \
              "--tags \"queue=bootstrap\" "
