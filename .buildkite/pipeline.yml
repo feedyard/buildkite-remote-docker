@@ -2,7 +2,9 @@ steps:
   - label: test source scope
     agents:
       queue: bootstrap
-    command: source /env/env
+    commands:
+      - "source /env/env"
+      - "echo $NITE"
   - label: lint
     agents:
       queue: bootstrap
