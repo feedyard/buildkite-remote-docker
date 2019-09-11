@@ -14,7 +14,6 @@ steps:
     agents:
       queue: bootstrap
     commands:
-      - "ls -la"
       - "ls -la .."
       - "echo $NITE"
       - "echo $NITETIME"
