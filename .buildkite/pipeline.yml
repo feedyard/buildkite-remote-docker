@@ -14,7 +14,8 @@ steps:
     agents:
       queue: bootstrap
     commands:
-      - "ls -la /env"
+      - "ls -la"
+      - "ls -la .."
       - "echo $NITE"
       - "echo $NITETIME"
       #- "echo $QUAY_DEPLOY_PASSWORD | docker login -u $QUAY_DEPLOY_USER --password-stdin quay.io"
