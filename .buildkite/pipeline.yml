@@ -3,6 +3,7 @@ steps:
     agents:
       queue: bootstrap
     commands:
+      - "cat /env/env"
       - "source /env/env"
       - "echo $NITE"
   - label: lint
