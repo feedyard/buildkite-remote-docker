@@ -17,7 +17,7 @@ control 'bash version' do
   impact 1.0
   title 'confirm bash version installed'
   desc 'confirm version reported bash git matches the desired version'
-  describe command('git --version') do
+  describe command('bash --version') do
     its('stdout') { should include ('5.0') }
   end
 end
@@ -45,7 +45,7 @@ control 'curl version' do
   title 'confirm curl version installed'
   desc 'confirm version reported by curl matches the desired version'
   describe command('curl --version') do
-    its('stderr') { should include ('7.66') }
+    its('stdout') { should include ('7.66') }
   end
 end
 
