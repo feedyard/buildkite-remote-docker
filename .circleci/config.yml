@@ -1,0 +1,74 @@
+---
+version: 2.1
+
+orbs:
+  executor-tools: feedyard/executor-tools@0.2.0
+  common: feedyard/common-pipeline-tasks@0.6.0
+
+workflows:
+  buildkite-remote-docker-pipeline:
+    jobs:
+      - executor-tools/dev-release:
+          name: dev-release
+          context: executor-publishing
+          image: feedyard/buildkite-remote-docker
+          registry: quay.io
+          after-build:
+            - run:
+                name: configuration testing of the image
+                command: |
+                  set -euo pipefail
+                  inspec exec --no-distinct-exit profiles/cis-docker
+                  CID="$(docker run -it -d --entrypoint ash quay.io/feedyard/buildkite-remote-docker:dev.$CIRCLE_SHA1)"
+                  inspec exec profiles/buildkite-remote-docker/ -t docker://$CID
+                  docker rm -f $CID
+          filters:
+            branches:
+              only: /master/
+            tags:
+              ignore: /.*/
+      - executor-tools/publish:
+          context: executor-publishing
+          image: feedyard/buildkite-remote-docker
+          registry: quay.io
+          after-publish:
+            - common/slack:
+                title: New Executor Version
+                message: new version published feedyard/buildkite-remote-docker $CIRCLE_TAG
+                webhook: SLACK_WEBHOOK
+          clean-tags:
+            - executor-tools/clean-quay:
+                image: feedyard/buildkite-remote-docker
+                bearer-token: QUAYIO_BEARER_TOKEN
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
+
+  # builds nightly from .unpinned Dockerfile in order to always be a latest for base image and packages
+  circleci-infra-agent-executor-nightly-build:
+    triggers:
+      - schedule:
+          cron: "0 6 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - executor-tools/dev-release:
+          name: nightly-build
+          context: executor-publishing
+          image: feedyard/buildkite-remote-docker
+          dockerfile: Dockerfile.unpinned
+          tag: nightly
+          registry: quay.io
+          after-build:
+            - run:
+                name: configuration testing
+                command: |
+                  set -euo pipefail
+                  inspec exec --no-distinct-exit profiles/cis-docker
+                  CID="$(docker run -it -d --entrypoint ash quay.io/feedyard/buildkite-remote-docker:nightly)"
+                  inspec exec profiles/buildkite-remote-docker-unpinned/ -t docker://$CID
+                  docker rm -f $CID

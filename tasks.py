@@ -4,6 +4,10 @@ from invoke import task
 def buildlocal(ctx):
     ctx.run('docker build -t local/buildkite-remote-docker:latest .')
 
+@task
+def testlocal(ctx):
+    ctx.run("bash testlocal.sh")
+
 # export BUILDKITE_AGENT_TOKEN= value from Buildkite
 @task
 def runlocalagent(ctx):
