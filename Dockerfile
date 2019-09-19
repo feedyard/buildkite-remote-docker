@@ -2,7 +2,7 @@ FROM alpine:3.10
 
 LABEL maintainer=<nic.cheneweth@thoughtworks.com>
 
-ENV BUILDKITE_AGENT_VERSION="3.13.2"
+ENV BUILDKITE_AGENT_VERSION="3.14.0"
 
 RUN apk add --no-cache \
         bash=5.0.0-r0 \
