@@ -73,7 +73,7 @@ control 'buildkite-agent version' do
   title 'confirm buildkite-agent version installed'
   desc 'confirm version reported by buildkite-agent matches the desired version'
   describe command('buildkite-agent --version') do
-    its('stdout') { should include ('3.13.2') }
+    its('stdout') { should include ('3.14.0') }
   end
 end
 
